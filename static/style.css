@@ -1,0 +1,317 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* a pixelated, monospaced font, similar to ones used in early video games */
+@font-face {
+  font-family: monogram;
+  src: url(monogram.ttf);
+}
+
+body {
+  line-height: 0.8; /* Adjusted for solving a line spacing problem with the monogram font in Firefox */
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  background: url("../images/desk.png") no-repeat center center fixed,
+        radial-gradient(circle at center, rgba(100,150,80,0.5) 0%, rgba(100,150,80,0.5) 33%, rgba(100,150,80,0) 35%, rgba(100,150,80,0) 100%),
+        linear-gradient(to bottom, #000000 0%, #005533 49%, #000000 50%, #009900 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes moveTowardsHorizon {
+  0% {
+    transform: translateY(50vh); /* Start in the middle */
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0, 0, 1, 0); /* this sets the speed that creates the perspective effect */
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+}
+.line {
+  position: fixed;
+  left: 0; /* Ensures the line starts from the very left edge */
+  width: 100%;
+  height: 4px; /* the height for the thickness of the line */
+  background: #77ff00;
+  animation: moveTowardsHorizon 16s infinite linear;
+}
+/* Different starting points using negative animation-delays */
+.line:nth-child(1) {
+  animation-delay: 0s;
+}
+.line:nth-child(2) {
+  animation-delay: -1s;
+}
+.line:nth-child(3) {
+  animation-delay: -2s;
+}
+.line:nth-child(4) {
+  animation-delay: -3s;
+}
+.line:nth-child(5) {
+  animation-delay: -4s;
+}
+.line:nth-child(6) {
+  animation-delay: -5s;
+}
+.line:nth-child(7) {
+  animation-delay: -6s;
+}
+.line:nth-child(8) {
+  animation-delay: -7s;
+}
+.line:nth-child(9) {
+  animation-delay: -8s;
+}
+.line:nth-child(10) {
+  animation-delay: -9s;
+}
+.line:nth-child(11) {
+  animation-delay: -10s;
+}
+.line:nth-child(12) {
+  animation-delay: -11s;
+}
+.line:nth-child(13) {
+  animation-delay: -12s;
+}
+.line:nth-child(14) {
+  animation-delay: -13s;
+}
+.line:nth-child(15) {
+  animation-delay: -14s;
+}
+.line:nth-child(16) {
+  animation-delay: -15s;
+}
+
+/* near 1:1 aspect ratio view */
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 9vw;
+  width: 85vmax;
+  background-color: #00000000;
+}
+
+.square {
+  display: flex;
+  width: 50vmax;
+  height: 50vmax;
+  margin: 0 auto;
+  position: relative; /* This is necessary for the absolute positioning of the cannon to work */
+}
+/* landscape view */
+@media (min-aspect-ratio: 1.45) {
+  .main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    width: 16vw;
+    height: 96vh;
+  }
+  .square {
+    display: flex;
+    width: 96vmin;
+    height: 96vmin;
+  }
+}
+
+/* portrait view */
+@media (max-aspect-ratio: 0.98) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .info {
+    display: flex;
+    height: 12vw;
+    width: 98vw;
+  }
+  .square {
+    display: flex;
+    width: 78vmin;
+    height: 78vmin;
+  }
+}
+
+p {
+  font-size: 5vmin;
+  font-family: monogram, Courier, monospace;
+  color: white;
+  padding: 1vh;
+  text-align: center;
+  /* add a glow to the text */
+  text-shadow: 0 0 12px #fff;
+}
+
+.mask-text {
+  /* creates a scanline effect, appropriate to an early video game display */
+  -webkit-mask-image: repeating-linear-gradient(#ffffff99 2px, black 6px);
+  mask-image: repeating-linear-gradient(#ffffff99 2px, black 6px);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}
+
+.scoreboard-container {
+  font-size: 4vmin;
+  font-family: monogram, Courier, monospace;
+  color: white;
+  padding: 1vh;
+  text-align: left;
+  -webkit-mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  text-shadow: 0 0 12px #fff;
+}
+form {
+  font-family: monogram, Courier, monospace;
+  color: white;
+  width: 100%;
+  padding-left: 27vmin;
+}
+input[type="text"] {
+  font-family: monogram, Courier, monospace;
+  color: white;
+  background-color: #000000aa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding-left: 4vmin;
+  width: 40%;
+  font-size: 6vmin;
+}
+input[type="text"]::placeholder {
+  color: #888;
+  font-size: 6vmin; 
+}
+.square .cannonShot {
+  position: absolute;
+  height: 2%;
+  transform: translateX(-50%);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  /* add a glow to the images */
+  filter: drop-shadow(0 0 3px #fff);
+}
+.square .alienShot {
+  position: absolute;
+  height: 2%;
+  transform: translateX(-50%);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  /* add a glow to the images */
+  filter: drop-shadow(0 0 3px #fff);
+}
+.square .lowAlien {
+  position: absolute;
+  height: 10%;
+  transform: translateX(-50%);
+}
+.square .pop {
+  position: absolute;
+  height: 12%;
+  transform: translate(-50%, 50%);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  /* add a glow to the images */
+  -webkit-mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  filter: drop-shadow(0 0 3px #fff);
+}
+.cannon {
+  clip-path: polygon(50% 0%, 65% 10%, 70% 30%, 75% 20%, 85% 20%, 90% 70%, 100% 80%, 90% 80%, 85% 100%, 75% 100%, 70% 80%, 65% 100%, 55% 100%, 50% 80%, 45% 100%, 35% 100%, 30% 80%, 25% 100%, 15% 100%, 10% 80%, 0% 80%, 10% 70%, 15% 20%, 25% 20%, 30% 30%, 35% 10%);
+  background: rgba(180, 255, 150, 0.6);
+}
+.explosion {
+  z-index: 10; /* Ensure it appears above other elements */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  -webkit-mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  filter: drop-shadow(0 0 3px #fff);
+}
+.modal-overlay {
+  position: fixed; /* Use fixed positioning to ensure the modal stays in view */
+  top: 50%; /* Position the modal vertically at the center of the viewport */
+  left: 50%; /* Position the modal horizontally at the center of the viewport */
+  width: 97vmin;
+  height: 52vmin;
+  transform: translate(
+    -50%,
+    -80%
+  );
+  z-index: 9999; /* Ensure the modal appears above other content */
+  background-color: rgba(0, 0, 0, 0.80); /* Semi-transparent background */
+  padding: 10px; /* Add padding to the modal */
+  border-radius: 12%;
+}
+
+.game-over-message {
+  font-family: monogram, Courier, monospace;
+  font-size: 27vmin;
+  color: white;
+  text-align: left;
+  padding-left: 3vmin;
+  background-color: #33333300;
+  /* adds a scanline effect to the GAME OVER message */
+  -webkit-mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  mask-image: repeating-linear-gradient(#ffffff77 2px, black 6px);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  text-shadow: 0 0 12px #fff;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+  padding: 5px;
+  font-family: monogram;
+  font-size: 50px;
+  width: 280px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 15px;
+  border-color: #fff;
+  color: #fff;
+  background-color: transparent;
+}
+
+#restart-btn {
+  position: absolute;
+  top: calc(100% + 10px); /* Position the button below the message */
+  left: 50%; /* Align the button horizontally */
+  transform: translateX(-50%); /* Center the button horizontally */
+  max-width: 40%; /* Reduce the size of the image */
+}

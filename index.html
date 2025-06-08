@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Invaders</title>
+    <link id="my-css" rel="stylesheet" href="static/style.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicons/favicon-16x16.png"
+    />
+    <link rel="icon" href="favicons/favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="favicons/site.webmanifest" />
+  </head>
+  <body>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+    <div class="main">
+      <div class="info">
+        <p><span class="mask-text">SCORE: <span id="scoreSpan"></span></span></p>
+        <br />
+        <p><span class="mask-text">HI-SCORE: <span id="hiScoreSpan"></span></span></p>
+        <br />
+        <p><span class="mask-text">TIME: <span id="timerSpan">00:00</span></span></p>
+        <br />
+        <p><span class="mask-text">LIVES: <span id="livesSpan">3</span></span></p>
+        <br />
+        <p><span class="mask-text">LEVEL: <span id="levelSpan">1</span></span></p>
+        <br />
+        <div class="controls" style="text-align: center">
+          <span id="pause-btn">
+            <img src="images/keyboard/pause_T.png" height="100%" alt="" />
+          </span>
+          <span id="play-btn" style="display: none">
+            <img src="images/keyboard/play_T.png" height="100%" alt="" />
+          </span>
+          <span id="restart-btn">
+          </span>
+        </div>
+      </div>
+      <div class="square">
+      </div>
+      <div class="info">
+        <p>
+            <span class="mask-text">LEFT:</span>
+            <br />
+            <img src="images/keyboard/computer_key_Arrow_Left_T.png" alt="⬅️" style="height: 3.5vmin" />
+        </p>
+        <br />
+        <p>
+            <span class="mask-text">RIGHT:</span>
+            <br />
+            <img src="images/keyboard/computer_key_Arrow_Right_T.png" alt="➡️" style="width: 3.5vmin" />
+        </p>
+        <br />
+        <p>
+            <span class="mask-text">FIRE:</span>
+            <br />
+            <img src="images/keyboard/computer_key_Space_bar_T.png" alt="🔥" style="height: 3.5vmin" />
+        </p>
+        <br />
+        <p>
+            <span class="mask-text" id="pause-resume-text">PAUSE</span>:
+            <br />
+            <img src="images/keyboard/computer_key_P_T.png" alt="⏯️" style="height: 3.5vmin" />
+            <br />
+        </p>
+        <br />
+        <p>
+            <span class="mask-text">RESTART:</span>
+            <br />
+            <img src="images/keyboard/computer_key_R_T.png" alt="R" style="height: 3.5vmin" />
+        </p>
+    </div>
+    </div>
+        <!-- Add this near the end of your index.html, before your game scripts -->
+    <!-- <script>
+    window.formSubmitted = false;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('overlay.html')
+        .then(response => response.text())
+        .then(html => {
+          // Directly inject the overlay HTML
+          document.getElementById('overlayContainer').innerHTML = html;
+    
+          // Now get the new overlay and form
+          const overlay = document.getElementById('formOverlay');
+          const playerForm = document.getElementById('playerForm');
+          playerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('playerName').value;
+            const email = document.getElementById('playerEmail').value;
+            const mobile = document.getElementById('playerMobile').value;
+            localStorage.setItem('playerInfo', JSON.stringify({ name, email, mobile }));
+            window.formSubmitted = true;
+            overlay.style.display = 'none';
+            if (typeof init === 'function') init();
+          });
+        });
+    });
+    </script> -->
+    <script type="module" src="static/script.mjs" defer></script>
+    <script type="module" src="static/gamepad.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Invaders - Player Registration</title>
+  <style>
+    @font-face {
+      font-family: 'Arcade';
+      src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    .star {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 4px solid #00ff00;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.7);
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: glow 2s infinite alternate;
+    }
+
+    /* Space invader decorations */
+    .invader {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.7;
+    }
+
+    .invader-1 {
+      top: -15px;
+      left: -15px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300ff00'%3E%3Cpath d='M0 0h2v2H0zm2 2h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2-2h2v2h-2zM2 4h2v2H2zm10 0h2v2h-2zM0 6h2v2H0zm2 0h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2 0h2v2h-2zM0 8h2v2H0zm4 0h2v2H4zm6 0h2v2h-2zm4 0h2v2h-2z'/%3E%3C/svg%3E");
+    }
+
+    .invader-2 {
+      top: -15px;
+      right: -15px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300ff00'%3E%3Cpath d='M0 0h2v2H0zm2 2h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2-2h2v2h-2zM2 4h2v2H2zm10 0h2v2h-2zM0 6h2v2H0zm2 0h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2 0h2v2h-2zM0 8h2v2H0zm4 0h2v2H4zm6 0h2v2h-2zm4 0h2v2h-2z'/%3E%3C/svg%3E");
+    }
+
+    .invader-3 {
+      bottom: -15px;
+      left: -15px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300ff00'%3E%3Cpath d='M0 0h2v2H0zm2 2h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2-2h2v2h-2zM2 4h2v2H2zm10 0h2v2h-2zM0 6h2v2H0zm2 0h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2 0h2v2h-2zM0 8h2v2H0zm4 0h2v2H4zm6 0h2v2h-2zm4 0h2v2h-2z'/%3E%3C/svg%3E");
+    }
+
+    .invader-4 {
+      bottom: -15px;
+      right: -15px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300ff00'%3E%3Cpath d='M0 0h2v2H0zm2 2h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2-2h2v2h-2zM2 4h2v2H2zm10 0h2v2h-2zM0 6h2v2H0zm2 0h2v2H2zm2 0h2v2H4zm2 0h2v2H6zm2 0h2v2H8zm2 0h2v2h-2zm2 0h2v2h-2zM0 8h2v2H0zm4 0h2v2H4zm6 0h2v2h-2zm4 0h2v2h-2z'/%3E%3C/svg%3E");
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+      }
+      to {
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.9);
+      }
+    }
+
+    .form-title {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #00ff00;
+      text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .form-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #00ff00, transparent);
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 8px;
+      color: #00ff00;
+      font-weight: bold;
+      font-size: 16px;
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+      letter-spacing: 1px;
+    }
+
+    .form-field input {
+      width: 100%;
+      padding: 12px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      box-sizing: border-box;
+      font-size: 16px;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .form-field input:focus {
+      outline: none;
+      border-color: #00ff00;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+      background-color: rgba(0, 40, 0, 0.3);
+    }
+
+    .error-message {
+      color: #ff5555;
+      font-size: 14px;
+      margin-top: 5px;
+      height: 15px;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+
+    .form-button {
+      width: 100%;
+      padding: 15px;
+      background-color: rgba(0, 40, 0, 0.5);
+      border: 3px solid #00ff00;
+      color: #00ff00;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .form-button:hover:before {
+      left: 100%;
+    }
+
+    .form-button:hover {
+      background-color: rgba(0, 60, 0, 0.7);
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+    }
+
+    /* Background lines animation */
+    .line {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(0, 255, 0, 0.2);
+      z-index: -1;
+      animation: moveLine 5s infinite linear;
+    }
+
+    @keyframes moveLine {
+      0% {
+        transform: translateY(-100vh);
+      }
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+
+    .line:nth-child(1) { animation-delay: 0.1s; }
+    .line:nth-child(2) { animation-delay: 0.3s; }
+    .line:nth-child(3) { animation-delay: 0.5s; }
+    .line:nth-child(4) { animation-delay: 0.7s; }
+    .line:nth-child(5) { animation-delay: 0.9s; }
+    .line:nth-child(6) { animation-delay: 1.1s; }
+    .line:nth-child(7) { animation-delay: 1.3s; }
+    .line:nth-child(8) { animation-delay: 1.5s; }
+    .line:nth-child(9) { animation-delay: 1.7s; }
+    .line:nth-child(10) { animation-delay: 1.9s; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .form-container {
+        width: 95%;
+        padding: 20px;
+      }
+      
+      .form-title {
+        font-size: 22px;
+      }
+      
+      .form-button {
+        padding: 12px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Stars background -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Background animation lines -->
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+
+    <!-- Space invader decorations -->
+    <div class="invader invader-1"></div>
+    <div class="invader invader-2"></div>
+    <div class="invader invader-3"></div>
+    <div class="invader invader-4"></div>
+    <div class="form-container">
+        <h2 class="form-title" style="display:block">PLAYER REGISTRATION</h2>
+        <form id="playerForm">
+      <div class="form-field">
+        <label for="playerName">NAME:</label>
+        <input type="text" id="playerName" name="name" required maxlength="15" placeholder="MAX 15 CHARS">
+        <div id="nameError" class="error-message"></div>
+      </div>
+      <div class="form-field">
+        <label for="playerEmail">EMAIL:</label>
+        <input type="email" id="playerEmail" name="email" required placeholder="YOUR@EMAIL.COM">
+        <div id="emailError" class="error-message"></div>
+      </div>
+      <div class="form-field">
+        <label for="playerMobile">MOBILE:</label>
+        <input type="tel" id="playerMobile" name="mobile" required placeholder="MOBILE NUMBER">
+        <div id="mobileError" class="error-message"></div>
+        </div>
+        <button type="submit" class="form-button">START MISSION</button>
+        </form>
+    </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create stars background
+      const starsContainer = document.getElementById('stars');
+      const starCount = 100;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random position
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        
+        // Random size
+        const size = Math.random() * 2 + 1;
+        
+        // Random animation delay
+        const delay = Math.random() * 2;
+        
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.animationDelay = `${delay}s`;
+        
+        starsContainer.appendChild(star);
+      }
+      
+      const form = document.getElementById('playerForm');
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const name = document.getElementById('playerName').value.trim();
+        const email = document.getElementById('playerEmail').value.trim();
+        const mobile = document.getElementById('playerMobile').value.trim();
+        
+        // Validate form
+        let isValid = true;
+        
+        // Name validation
+        if (name === '') {
+          document.getElementById('nameError').textContent = 'NAME IS REQUIRED';
+          isValid = false;
+        } else if (name.length > 15) {
+          document.getElementById('nameError').textContent = 'NAME MUST BE 15 CHARS OR LESS';
+          isValid = false;
+        } else {
+          document.getElementById('nameError').textContent = '';
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === '') {
+          document.getElementById('emailError').textContent = 'EMAIL IS REQUIRED';
+          isValid = false;
+        } else if (!emailRegex.test(email)) {
+          document.getElementById('emailError').textContent = 'ENTER A VALID EMAIL';
+          isValid = false;
+        } else {
+          document.getElementById('emailError').textContent = '';
+        }
+        
+        // Mobile validation
+        const mobileRegex = /^\d{10,15}$/;
+        if (mobile === '') {
+          document.getElementById('mobileError').textContent = 'MOBILE NUMBER IS REQUIRED';
+          isValid = false;
+        } else if (!mobileRegex.test(mobile)) {
+          document.getElementById('mobileError').textContent = 'ENTER A VALID MOBILE NUMBER';
+          isValid = false;
+        } else {
+          document.getElementById('mobileError').textContent = '';
+        }
+        
+        if (isValid) {
+          // Create player data object
+          const playerData = {
+            name: name,
+            email: email,
+            mobile: mobile,
+            timestamp: new Date().toISOString()
+          };
+          
+          // Disable the submit button and show loading state
+          const submitButton = document.querySelector('.form-button');
+          submitButton.disabled = true;
+          submitButton.textContent = 'PREPARING...';
+          
+          // Send data to server
+          fetch('/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(playerData),
+          })
+          .then(response => {
+            if (response.ok) {
+              // Add a short delay for effect
+              setTimeout(() => {
+                submitButton.textContent = 'LAUNCHING...';
+                
+                // Add another delay before redirecting
+                setTimeout(() => {
+                  // Redirect to the game
+                  window.location.href = '/';
+                }, 1000);
+              }, 1000);
+            } else {
+              throw new Error('Registration failed');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            submitButton.disabled = false;
+            submitButton.textContent = 'START MISSION';
+            alert('REGISTRATION FAILED. PLEASE TRY AGAIN.');
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
