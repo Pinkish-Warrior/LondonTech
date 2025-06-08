@@ -96,7 +96,7 @@ Most sound effects were taken from videos of the original Space Invaders. But th
 
 - Christopher Reed
 - George Saad
-- Tania Machado Santana
+- Tania Machado Santana 🔗 https://www.linkedin.com/in/tania-rosa-99503b36/
 - Diana Adamczyk
 
 - Thanks to Tomohiro Nishikado of developer Taito, designer of the original Space Invaders
