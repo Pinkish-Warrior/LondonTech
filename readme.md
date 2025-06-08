@@ -20,12 +20,12 @@ Compared to the original Space Invaders, some game aspects are still absent, suc
 
 
 ## Installation instructions 👽
-
+cs
 Go 1.17 or higher required
 
 Download with git using the command line
 
-`git clone https://learn.01founders.co/git/creed/01-invaders.git`
+`git clone https://github.com/Pinkish-Warrior/LondonTech.git`
 
 
 ## Usage instructions 👽
@@ -33,7 +33,7 @@ Download with git using the command line
 Run with the command line:
 
 `go run main.go`
-
+cs
 then with a web browser go to the URL
 
 [http://localhost:8081/](http://localhost:8081/)
